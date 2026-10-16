@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background-color: #0b1020;
+}
+
+body {
+  @apply bg-base text-primary antialiased;
+}
+
+/* 代码高亮（rehype-highlight 输出 hljs 类名，深色主题配色） */
+.hljs {
+  color: #c9d1d9;
+  background: transparent;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag {
+  color: #ff7b72;
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition {
+  color: #a5d6ff;
+}
+.hljs-title,
+.hljs-section,
+.hljs-function .hljs-title {
+  color: #d2a8ff;
+}
+.hljs-number,
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-symbol {
+  color: #79c0ff;
+}
+.hljs-comment,
+.hljs-quote {
+  color: #8b949e;
+  font-style: italic;
+}
+.hljs-built_in,
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #ffa657;
+}
+.hljs-meta,
+.hljs-attribute {
+  color: #7ee787;
+}
+.hljs-deletion {
+  color: #ffa198;
+}

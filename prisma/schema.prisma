@@ -1,0 +1,85 @@
+// Prisma Schema — 个人作品集
+// 开发使用 SQLite，生产可切换为 PostgreSQL（见 TECH_DESIGN.md）
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Profile {
+  id        String   @id @default(cuid())
+  name      String
+  title     String
+  tagline   String
+  about     String
+  avatarUrl String?
+  resumeUrl String?
+  updatedAt DateTime @updatedAt
+}
+
+model SocialLink {
+  id        String @id @default(cuid())
+  type      String
+  label     String
+  url       String
+  sortOrder Int    @default(0)
+}
+
+model SkillCategory {
+  id        String  @id @default(cuid())
+  name      String
+  sortOrder Int     @default(0)
+  skills    Skill[]
+}
+
+model Skill {
+  id         String        @id @default(cuid())
+  name       String
+  level      Int           @default(80)
+  icon       String?
+  categoryId String
+  category   SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  sortOrder  Int           @default(0)
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  summary     String
+  description String
+  coverUrl    String?
+  techStack   String   @default("[]")
+  githubUrl   String?
+  demoUrl     String?
+  featured    Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  summary     String?
+  content     String
+  coverUrl    String?
+  tags        String    @default("[]")
+  status      String    @default("DRAFT") // DRAFT | PUBLISHED（SQLite 不支持 enum，用字符串 + Zod 校验）
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
