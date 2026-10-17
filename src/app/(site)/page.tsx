@@ -2,8 +2,6 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { SmartImage } from "@/components/SmartImage";
 
-export const revalidate = 60;
-
 function parseJsonArray(value: string): string[] {
   try {
     const parsed = JSON.parse(value);

@@ -4,8 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { Markdown } from "@/components/blog/Markdown";
 import { SmartImage } from "@/components/SmartImage";
 
-export const revalidate = 60;
-
 export async function generateStaticParams() {
   const posts = await prisma.post.findMany({
     where: { status: "PUBLISHED" },
